@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.7.1",
-    "mongodb": "^4.13.0"
+    "mongodb": "^4.13.0",
+    "newrelic": "^9.7.5"
   }
 }

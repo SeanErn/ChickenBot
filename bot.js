@@ -1,11 +1,12 @@
-//Invite URL https://discord.com/api/oauth2/authorize?client_id=1059925658026905760&permissions=8&scope=bot%20applications.commands
+//Invite URL: https://discord.com/api/oauth2/authorize?client_id=1059925658026905760&permissions=8&scope=bot%20applications.commands
+//Start command: doppler run --command="node -r newrelic bot.js"
 // Command handler
 const fs = require('node:fs');
 const path = require('node:path');
 
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
-const config = require('./config.json');
+const token = process.env["TOKEN"]
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -41,4 +42,4 @@ for (const file of eventFiles) {
 }
 
 // Log in to Discord with your client's token
-client.login(config.token);
+client.login(token);

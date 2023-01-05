@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { MongoClient } = require("mongodb");
-const { serverUri } = require ('../mongoConfig.json');
+const serverUri = process.env["SERVERURI"]
+
 const dbClient = new MongoClient(serverUri);
 module.exports = {
 	data: new SlashCommandBuilder()
