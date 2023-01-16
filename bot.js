@@ -1,5 +1,3 @@
-//Invite URL: https://discord.com/api/oauth2/authorize?client_id=1059925658026905760&permissions=8&scope=bot%20applications.commands
-//Start command: doppler run --command="node -r newrelic bot.js"
 // Command handler
 const fs = require('node:fs');
 const path = require('node:path');

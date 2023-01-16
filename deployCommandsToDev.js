@@ -17,7 +17,14 @@ for (const file of commandFiles) {
 // Construct and prepare an instance of the REST module
 const rest = new REST({ version: '10' }).setToken(token);
 
+// Delete command from dev guild
+/*
+rest.delete(Routes.applicationGuildCommand(clientId, devGuildId, '1060316365023613050'))
+	.then(() => console.log('Successfully deleted guild command'))
+	.catch(console.error);
+*/
 // and deploy your commands!
+
 (async () => {
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
@@ -34,3 +41,4 @@ const rest = new REST({ version: '10' }).setToken(token);
 		console.error(error);
 	}
 })();
+

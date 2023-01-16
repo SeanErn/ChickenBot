@@ -26,17 +26,17 @@ module.exports = {
 
     // Create a message collector that will listen for numbers in the channel the command was used in
     const filter = m => !isNaN(m.content);
-    await interaction.reply({ embeds: [countEmbed], fetchReply: true })
-    .then(() => {
-      interaction.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] })
-        .then(collected => {
-          interaction.followUp(`${collected.first().author} got the correct answer!`);
-        })
-        .catch(collected => {
-          interaction.followUp('Looks like nobody got the answer this time.');
-        });
-    });
+    const collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
+    await interaction.reply({ embeds: [countEmbed] });
+
+    collector.on('collect', m => {
+      console.log(`Collected ${m.content}`);
+    });
+    collector.on('end', collected => {
+      console.log(`Collected ${collected.size} items`);
+    });
+  
           } finally {
             // Ensures that the client will close when you finish/error
             //await dbClient.close();
