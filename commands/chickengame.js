@@ -27,18 +27,12 @@ module.exports = {
                             var postGameP3 = ""; 
                             players = [interaction.options.getUser("playerone"), interaction.options.getUser("playertwo")];
                         } else {
-                            var playerthree = interaction.options.getUser("playerthree");
-                            var dbPlayerthree = await coll.findOne({userId:playerthree.id});
-                            var postGameP3 = `3. ${playerthree} had ${dbPlayerthree.chickensRemaining} chickens left \n`;
                             players = [interaction.options.getUser("playerone"), interaction.options.getUser("playertwo"), interaction.options.getUser("playerthree")];
                         }
                         if (interaction.options.getUser("playerfour") == null){
                             var playerfour = "None";
                             var postGameP4 = "";
                         } else {
-                            var playerfour = interaction.options.getUser("playerfour");
-                            var dbPlayerfour = await coll.findOne({userId:playerfour.id});
-                            var postGameP4 = `4. ${playerfour} had ${dbPlayerfour.chickensRemaining} chickens left \n`;
                             players = [interaction.options.getUser("playerone"), interaction.options.getUser("playertwo"), interaction.options.getUser("playerthree"), interaction.options.getUser("playerfour")];
                         }
 
@@ -68,6 +62,20 @@ module.exports = {
                     await coll.updateOne({userId:player.id},{$set: {gameInProgress:true,gameDateStarted:Date.now(), chickensRemaining:interaction.options.getInteger("numberofchickens")}});                 
                 }
             });
+
+            //THEN SEND USER DATA TO DB
+            if (interaction.options.getUser("playerthree") != null){
+                var playerthree = interaction.options.getUser("playerthree");
+                var dbPlayerthree = await coll.findOne({userId:playerthree.id});
+                var postGameP3 = `3. ${playerthree} had ${dbPlayerthree.chickensRemaining} chickens left \n`;
+            }
+            if (interaction.options.getUser("playerfour") != null){
+                var playerfour = interaction.options.getUser("playerfour");
+                var dbPlayerfour = await coll.findOne({userId:playerfour.id});
+                var postGameP4 = `4. ${playerfour} had ${dbPlayerfour.chickensRemaining} chickens left \n`;
+            }
+
+
             
 
             //When the game is over, update the database
