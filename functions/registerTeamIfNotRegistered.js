@@ -1,3 +1,4 @@
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, Message } = require("discord.js");
 const { MongoClient } = require("mongodb");
 const serverUri = process.env["SERVERURI"]
 const dbClient = new MongoClient(serverUri);
@@ -5,7 +6,7 @@ const dbClient = new MongoClient(serverUri);
     async function registerTeamIfNotRegistered(interaction, teamName){
     const db = dbClient.db("chickenBot");
     const coll = db.collection("chickenBotTeamData");
-    let teamsChannel = interaction.guild.channels.cache.find(channel => channel.name === "hello");
+    let teamsChannel = interaction.guild.channels.cache.find(channel => channel.name === "🙏🏽-team-select");
 
     const messages = await teamsChannel.messages.fetch({ limit: 100 });
     const messageWithEmbed = messages.find(msg => msg.embeds.some(embed => embed.title === 'Team | ' + teamName));
@@ -29,13 +30,14 @@ const dbClient = new MongoClient(serverUri);
                 await coll.updateOne({ name:teamName }, { $push: { members: interaction.user.id } });
             }
 
-            //Construct embeds
+            //Construct embeds //! ERROR HERE
             const embed = new EmbedBuilder()
             .setTitle("Team | " + teamName)
-            .setDescription("Team created by " + user.username + "#" + user.discriminator)
+            .setDescription("Team created by " + interaction.user.username + "#" + interaction.user.discriminator)
             .addFields(
                 { name: 'Members', value: await coll.findOne({ name:teamName }).members },
-            )
+            );
+            console.log(embed);
             
             teamsChannel.send({ embeds: [embed] });
             
