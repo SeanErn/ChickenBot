@@ -7,5 +7,5 @@ WORKDIR /app
 COPY ./ /app
 RUN npm install
 
-ENTRYPOINT ["doppler", "run", "--"]
+# ENTRYPOINT ["doppler", "run", "--"]
 CMD ["node", "-r", "newrelic", "bot.js"]

@@ -18,7 +18,7 @@ module.exports = {
 	async execute(interaction) {
         try {
             var players = [];
-            const db = dbClient.db("chickenBotUserData");
+            const db = dbClient.db("chickenBot");
             const coll = db.collection("chickenBotUserData");
             await dbClient.connect();
                         //Get the number of players
@@ -47,7 +47,7 @@ module.exports = {
 
             players.forEach(async function(player){
                 //connect to db
-                const db = dbClient.db("chickenBotUserData");
+                const db = dbClient.db("chickenBot");
                 const coll = db.collection("chickenBotUserData");
                 dbPlayer = await coll.findOne({userId:player.id});
 
@@ -80,7 +80,7 @@ module.exports = {
 
             //When the game is over, update the database
             const gameEnd = async () => {
-                const db = dbClient.db("chickenBotUserData");
+                const db = dbClient.db("chickenBot");
                 const coll = db.collection("chickenBotUserData");
                 players.forEach(async function(player){
                     //connect to db
@@ -98,7 +98,7 @@ module.exports = {
                 }
             }
             const chickenOut = async () => {
-                const db = dbClient.db("chickenBotUserData");
+                const db = dbClient.db("chickenBot");
                 const coll = db.collection("chickenBotUserData");
                 dbPlayer = await coll.findOne({userId:currentPlayer.id});
                 await coll.updateOne({userId:currentPlayer.id},{$set: {chickensRemaining:dbPlayer.chickensRemaining-1}});
@@ -133,7 +133,7 @@ module.exports = {
                 );
 
                 const genDare = async () => {
-            const dareDb = dbDareClient.db("chickenBotChickens");
+            const dareDb = dbDareClient.db("chickenBot");
             const dareColl = dareDb.collection("chickenBotChickens"); 
             var userInDB = await coll.findOne({userId:currentPlayer.id});
             var dare = await dareColl.findOne({INDEX:Math.floor(Math.random() * (26 - 0) + 0)});

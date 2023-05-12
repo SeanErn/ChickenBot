@@ -1,3 +1,4 @@
 node_modules
 config.json
 mongoConfig.json
+newrelic_agent.log

@@ -7,5 +7,9 @@ module.exports = {
             name: "🚀-chickenbot-commands",
             type: ChannelType.GuildText
         });
+        guild.channels.create({
+            name: "🙏🏽-team-select",
+            type: ChannelType.GuildText
+        });
 	},
 };
