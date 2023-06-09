@@ -30,16 +30,14 @@ const dbClient = new MongoClient(serverUri);
                 await coll.updateOne({ name:teamName }, { $push: { members: interaction.user.id } });
             }
 
-            //Construct embeds //! ERROR HERE
+            //Construct embeds
             const embed = new EmbedBuilder()
             .setTitle("Team | " + teamName)
             .setDescription("Team created by " + interaction.user.username + "#" + interaction.user.discriminator)
             .addFields(
-                { name: 'Members', value: await coll.findOne({ name:teamName }).members },
+                { name: 'Members', value: teamMembers },
             );
             console.log(embed);
-            
-            teamsChannel.send({ embeds: [embed] });
             
         } finally {
             // Ensures that the client will close when you finish/error

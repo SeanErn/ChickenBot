@@ -39,5 +39,24 @@ for (const file of eventFiles) {
 	}
 }
 
+// Server open/close notifications
+const { serverOpen, serverClose, serverOpeningIn15m } = require('./functions/serverOpenCloseNotifications.js');
+const nodeCron = require("node-cron");
+
+const job15m = nodeCron.schedule("0 45 15 * * *", () => serverOpeningIn15m(client));
+const jobOpen = nodeCron.schedule("0 0 16 * * *", () => serverOpen(client));
+const jobClose = nodeCron.schedule("0 0 20 * * *", () => serverClose(client));
+
+
 // Log in to Discord with your client's token
 client.login(token);
+try {
+
+job15m.start();
+jobOpen.start();
+jobClose.start();
+
+} catch (error) {
+	console.log("Error starting cron jobs");
+	console.log(error);
+}
